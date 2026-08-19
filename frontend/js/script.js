@@ -1,73 +1,155 @@
 // ============================================================
-// CHURNAI - FRONTEND JAVASCRIPT
+// TELECOM CHURN PREDICTION FRONTEND
 // ============================================================
 
 
 // ============================================================
-// API CONFIGURATION
+// BACKEND API
 // ============================================================
 
-const API_URL = "http://127.0.0.1:8000";
-
-
-// ============================================================
-// DOM READY
-// ============================================================
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    initializeAnimations();
-
-    initializePredictionForm();
-
-    loadPredictionResult();
-
-});
+const API_URL =
+    "https://telecom-churn-prediction-askw.onrender.com/predict";
 
 
 // ============================================================
-// SCROLL REVEAL ANIMATION
+// HELPER: SET INPUT VALUE
 // ============================================================
 
-function initializeAnimations() {
+function setValue(id, value) {
 
-    const revealElements =
-        document.querySelectorAll(".reveal");
+    const input = document.getElementById(id);
 
-    if (!revealElements.length) {
-        return;
+    if (input) {
+        input.value = value;
     }
 
-    const observer =
-        new IntersectionObserver(
-            (entries) => {
+}
 
-                entries.forEach(entry => {
 
-                    if (entry.isIntersecting) {
+// ============================================================
+// LOW-RISK TEST CUSTOMER
+// ============================================================
 
-                        entry.target.classList.add(
-                            "visible"
-                        );
+const lowRiskCustomer = {
 
-                        observer.unobserve(
-                            entry.target
-                        );
+    arpu_8: 450,
 
-                    }
+    offnet_mou_8: 120,
 
-                });
+    loc_og_t2m_mou_7: 80,
+    loc_og_t2m_mou_8: 85,
 
-            },
-            {
-                threshold: 0.15
-            }
+    loc_og_mou_7: 100,
+    loc_og_mou_8: 110,
+
+    total_og_mou_8: 150,
+
+    loc_ic_t2m_mou_7: 70,
+    loc_ic_t2m_mou_8: 75,
+
+    loc_ic_mou_7: 90,
+    loc_ic_mou_8: 95,
+
+    total_ic_mou_7: 130,
+    total_ic_mou_8: 140,
+
+    total_rech_num_8: 8,
+    total_rech_amt_8: 500,
+
+    max_rech_amt_8: 100,
+    last_day_rch_amt_8: 50,
+
+    aon: 730,
+
+    tenure_years: 2,
+    tenure_months: 24,
+
+    min_arpu: 400,
+    recent_arpu: 450,
+    arpu_change: 50,
+
+    avg_incoming_usage: 135,
+    recent_incoming_usage: 140,
+    incoming_usage_change: 10,
+
+    recent_outgoing_usage: 150,
+    outgoing_usage_change: 15,
+
+    recent_offnet_usage: 120,
+
+    activity_decline: 20
+
+};
+
+
+// ============================================================
+// HIGH-RISK TEST CUSTOMER
+// ============================================================
+
+const highRiskCustomer = {
+
+    arpu_8: 20,
+
+    offnet_mou_8: 2,
+
+    loc_og_t2m_mou_7: 5,
+    loc_og_t2m_mou_8: 1,
+
+    loc_og_mou_7: 8,
+    loc_og_mou_8: 2,
+
+    total_og_mou_8: 3,
+
+    loc_ic_t2m_mou_7: 4,
+    loc_ic_t2m_mou_8: 1,
+
+    loc_ic_mou_7: 6,
+    loc_ic_mou_8: 1,
+
+    total_ic_mou_7: 8,
+    total_ic_mou_8: 2,
+
+    total_rech_num_8: 1,
+    total_rech_amt_8: 10,
+
+    max_rech_amt_8: 10,
+    last_day_rch_amt_8: 0,
+
+    aon: 120,
+
+    tenure_years: 0.33,
+    tenure_months: 4,
+
+    min_arpu: 10,
+    recent_arpu: 20,
+    arpu_change: -30,
+
+    avg_incoming_usage: 5,
+    recent_incoming_usage: 2,
+    incoming_usage_change: -8,
+
+    recent_outgoing_usage: 3,
+    outgoing_usage_change: -10,
+
+    recent_offnet_usage: 2,
+
+    activity_decline: 40
+
+};
+
+
+// ============================================================
+// FILL FORM
+// ============================================================
+
+function fillForm(customer) {
+
+    Object.keys(customer).forEach(function (key) {
+
+        setValue(
+            key,
+            customer[key]
         );
-
-
-    revealElements.forEach(element => {
-
-        observer.observe(element);
 
     });
 
@@ -75,700 +157,396 @@ function initializeAnimations() {
 
 
 // ============================================================
-// PREDICTION FORM
+// LOW-RISK BUTTON
 // ============================================================
 
-function initializePredictionForm() {
+const lowRiskBtn =
+    document.getElementById("lowRiskBtn");
 
-    const form =
-        document.getElementById(
-            "predictionForm"
-        );
+if (lowRiskBtn) {
+
+    lowRiskBtn.addEventListener(
+        "click",
+        function () {
+
+            fillForm(
+                lowRiskCustomer
+            );
+
+            const message =
+                document.getElementById(
+                    "formMessage"
+                );
+
+            if (message) {
+
+                message.textContent =
+                    "🟢 Low-risk test customer loaded.";
+
+                message.style.color =
+                    "#166534";
+
+            }
+
+        }
+    );
+
+}
 
 
-    if (!form) {
-        return;
-    }
+// ============================================================
+// HIGH-RISK BUTTON
+// ============================================================
+
+const highRiskBtn =
+    document.getElementById("highRiskBtn");
+
+if (highRiskBtn) {
+
+    highRiskBtn.addEventListener(
+        "click",
+        function () {
+
+            fillForm(
+                highRiskCustomer
+            );
+
+            const message =
+                document.getElementById(
+                    "formMessage"
+                );
+
+            if (message) {
+
+                message.textContent =
+                    "🔴 High-risk test customer loaded.";
+
+                message.style.color =
+                    "#991b1b";
+
+            }
+
+        }
+    );
+
+}
 
 
-    form.addEventListener(
+// ============================================================
+// GET FORM
+// ============================================================
+
+const predictionForm =
+    document.getElementById(
+        "predictionForm"
+    );
+
+
+// ============================================================
+// FORM SUBMISSION
+// ============================================================
+
+if (predictionForm) {
+
+    predictionForm.addEventListener(
         "submit",
-        async (event) => {
+        async function (event) {
 
             event.preventDefault();
 
-            await makePrediction();
 
-        }
-    );
+            const message =
+                document.getElementById(
+                    "formMessage"
+                );
 
-}
 
+            // --------------------------------------------
+            // SHOW LOADING MESSAGE
+            // --------------------------------------------
 
-// ============================================================
-// GET INPUT VALUE
-// ============================================================
+            if (message) {
 
-function getValue(id) {
+                message.textContent =
+                    "⏳ Analyzing customer...";
 
-    const element =
-        document.getElementById(id);
+                message.style.color =
+                    "#2563eb";
 
+            }
 
-    if (!element) {
 
-        console.error(
-            `Input not found: ${id}`
-        );
+            // --------------------------------------------
+            // FEATURES REQUIRED BY MODEL
+            // --------------------------------------------
 
-        return null;
-    }
+            const featureNames = [
 
+                "arpu_8",
 
-    const value =
-        parseFloat(element.value);
+                "offnet_mou_8",
 
+                "loc_og_t2m_mou_7",
+                "loc_og_t2m_mou_8",
 
-    return value;
-}
+                "loc_og_mou_7",
+                "loc_og_mou_8",
 
+                "total_og_mou_8",
 
-// ============================================================
-// COLLECT CUSTOMER DATA
-// ============================================================
+                "loc_ic_t2m_mou_7",
+                "loc_ic_t2m_mou_8",
 
-function collectCustomerData() {
+                "loc_ic_mou_7",
+                "loc_ic_mou_8",
 
-    return {
+                "total_ic_mou_7",
+                "total_ic_mou_8",
 
-        arpu_8:
-            getValue("arpu_8"),
+                "total_rech_num_8",
+                "total_rech_amt_8",
 
-        offnet_mou_8:
-            getValue("offnet_mou_8"),
+                "max_rech_amt_8",
+                "last_day_rch_amt_8",
 
-        loc_og_t2m_mou_7:
-            getValue("loc_og_t2m_mou_7"),
+                "aon",
 
-        loc_og_t2m_mou_8:
-            getValue("loc_og_t2m_mou_8"),
+                "tenure_years",
+                "tenure_months",
 
-        loc_og_mou_7:
-            getValue("loc_og_mou_7"),
+                "min_arpu",
+                "recent_arpu",
+                "arpu_change",
 
-        loc_og_mou_8:
-            getValue("loc_og_mou_8"),
+                "avg_incoming_usage",
+                "recent_incoming_usage",
+                "incoming_usage_change",
 
-        total_og_mou_8:
-            getValue("total_og_mou_8"),
+                "recent_outgoing_usage",
+                "outgoing_usage_change",
 
-        loc_ic_t2m_mou_7:
-            getValue("loc_ic_t2m_mou_7"),
+                "recent_offnet_usage",
 
-        loc_ic_t2m_mou_8:
-            getValue("loc_ic_t2m_mou_8"),
+                "activity_decline"
 
-        loc_ic_mou_7:
-            getValue("loc_ic_mou_7"),
+            ];
 
-        loc_ic_mou_8:
-            getValue("loc_ic_mou_8"),
 
-        total_ic_mou_7:
-            getValue("total_ic_mou_7"),
+            // --------------------------------------------
+            // CREATE JSON OBJECT
+            // --------------------------------------------
 
-        total_ic_mou_8:
-            getValue("total_ic_mou_8"),
+            const customerData = {};
 
-        total_rech_num_8:
-            getValue("total_rech_num_8"),
 
-        total_rech_amt_8:
-            getValue("total_rech_amt_8"),
+            for (
+                const feature of featureNames
+            ) {
 
-        max_rech_amt_8:
-            getValue("max_rech_amt_8"),
+                const input =
+                    document.getElementById(
+                        feature
+                    );
 
-        last_day_rch_amt_8:
-            getValue("last_day_rch_amt_8"),
 
-        aon:
-            getValue("aon"),
+                if (!input) {
 
-        tenure_years:
-            getValue("tenure_years"),
+                    console.error(
+                        "Missing input:",
+                        feature
+                    );
 
-        tenure_months:
-            getValue("tenure_months"),
-
-        min_arpu:
-            getValue("min_arpu"),
-
-        recent_arpu:
-            getValue("recent_arpu"),
-
-        arpu_change:
-            getValue("arpu_change"),
-
-        avg_incoming_usage:
-            getValue("avg_incoming_usage"),
-
-        recent_incoming_usage:
-            getValue("recent_incoming_usage"),
-
-        incoming_usage_change:
-            getValue("incoming_usage_change"),
-
-        recent_outgoing_usage:
-            getValue("recent_outgoing_usage"),
-
-        outgoing_usage_change:
-            getValue("outgoing_usage_change"),
-
-        recent_offnet_usage:
-            getValue("recent_offnet_usage"),
-
-        activity_decline:
-            getValue("activity_decline")
-
-    };
-
-}
-
-
-// ============================================================
-// VALIDATE CUSTOMER DATA
-// ============================================================
-
-function validateCustomerData(data) {
-
-    const missingFields = [];
-
-
-    for (const [key, value] of Object.entries(data)) {
-
-        if (
-            value === null ||
-            Number.isNaN(value)
-        ) {
-
-            missingFields.push(key);
-
-        }
-
-    }
-
-
-    if (missingFields.length > 0) {
-
-        alert(
-            "Please complete all fields before making a prediction."
-        );
-
-        console.warn(
-            "Missing fields:",
-            missingFields
-        );
-
-        return false;
-    }
-
-
-    return true;
-
-}
-
-
-// ============================================================
-// MAKE PREDICTION
-// ============================================================
-
-async function makePrediction() {
-
-    const data =
-        collectCustomerData();
-
-
-    console.log(
-        "Customer data:",
-        data
-    );
-
-
-    if (!validateCustomerData(data)) {
-
-        return;
-
-    }
-
-
-    showLoading();
-
-
-    try {
-
-        const response =
-            await fetch(
-                `${API_URL}/predict`,
-                {
-
-                    method: "POST",
-
-                    headers: {
-
-                        "Content-Type":
-                            "application/json"
-
-                    },
-
-                    body:
-                        JSON.stringify(data)
+                    continue;
 
                 }
-            );
 
 
-        if (!response.ok) {
+                const value =
+                    input.value;
 
-            const errorText =
-                await response.text();
 
-            console.error(
-                "API Error:",
-                errorText
-            );
+                if (
+                    value === "" ||
+                    value === null
+                ) {
 
-            throw new Error(
-                `API returned ${response.status}`
-            );
+                    if (message) {
+
+                        message.textContent =
+                            `Please enter a value for ${feature}.`;
+
+                        message.style.color =
+                            "#dc2626";
+
+                    }
+
+                    input.focus();
+
+                    return;
+
+                }
+
+
+                customerData[feature] =
+                    Number(value);
+
+            }
+
+
+            // --------------------------------------------
+            // SEND REQUEST TO FASTAPI
+            // --------------------------------------------
+
+            try {
+
+                const response =
+                    await fetch(
+                        API_URL,
+                        {
+
+                            method: "POST",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json"
+
+                            },
+
+                            body:
+                                JSON.stringify(
+                                    customerData
+                                )
+
+                        }
+                    );
+
+
+                // ----------------------------------------
+                // CHECK RESPONSE
+                // ----------------------------------------
+
+                if (!response.ok) {
+
+                    const errorText =
+                        await response.text();
+
+                    console.error(
+                        "API Error:",
+                        errorText
+                    );
+
+                    throw new Error(
+                        "The prediction server returned an error."
+                    );
+
+                }
+
+
+                // ----------------------------------------
+                // READ JSON
+                // ----------------------------------------
+
+                const result =
+                    await response.json();
+
+
+                console.log(
+                    "Prediction result:",
+                    result
+                );
+
+
+                // ----------------------------------------
+                // SAVE RESULT
+                // ----------------------------------------
+
+                localStorage.setItem(
+                    "predictionResult",
+                    JSON.stringify(result)
+                );
+
+
+                // ----------------------------------------
+                // GO TO RESULT PAGE
+                // ----------------------------------------
+
+                window.location.href =
+                    "result.html";
+
+
+            } catch (error) {
+
+                console.error(
+                    "Prediction error:",
+                    error
+                );
+
+
+                if (message) {
+
+                    message.textContent =
+                        "❌ Unable to connect to the prediction server. Please try again.";
+
+                    message.style.color =
+                        "#dc2626";
+
+                }
+
+            }
 
         }
-
-
-        const result =
-            await response.json();
-
-
-        console.log(
-            "Prediction result:",
-            result
-        );
-
-
-        // Save result
-
-        localStorage.setItem(
-            "churnPrediction",
-            JSON.stringify(result)
-        );
-
-
-        // Save customer data
-
-        localStorage.setItem(
-            "customerData",
-            JSON.stringify(data)
-        );
-
-
-        // Go to result page
-
-        window.location.href =
-            "result.html";
-
-
-    }
-    catch (error) {
-
-        console.error(
-            "Prediction error:",
-            error
-        );
-
-
-        hideLoading();
-
-
-        alert(
-            "Unable to connect to the AI server.\n\n" +
-            "Make sure FastAPI is running at:\n" +
-            API_URL
-        );
-
-    }
-
-}
-
-
-// ============================================================
-// SHOW LOADING
-// ============================================================
-
-function showLoading() {
-
-    const loading =
-        document.getElementById(
-            "loading"
-        );
-
-
-    const form =
-        document.getElementById(
-            "predictionForm"
-        );
-
-
-    if (loading) {
-
-        loading.classList.remove(
-            "hidden"
-        );
-
-    }
-
-
-    if (form) {
-
-        form.style.opacity = "0.4";
-
-        form.style.pointerEvents =
-            "none";
-
-    }
-
-}
-
-
-// ============================================================
-// HIDE LOADING
-// ============================================================
-
-function hideLoading() {
-
-    const loading =
-        document.getElementById(
-            "loading"
-        );
-
-
-    const form =
-        document.getElementById(
-            "predictionForm"
-        );
-
-
-    if (loading) {
-
-        loading.classList.add(
-            "hidden"
-        );
-
-    }
-
-
-    if (form) {
-
-        form.style.opacity = "1";
-
-        form.style.pointerEvents =
-            "auto";
-
-    }
-
-}
-
-
-// ============================================================
-// DEMO CUSTOMER HELPER
-// ============================================================
-
-function setInput(id, value) {
-
-    const input =
-        document.getElementById(id);
-
-
-    if (input) {
-
-        input.value = value;
-
-    }
-
-}
-
-
-// ============================================================
-// LOW-RISK DEMO
-// ============================================================
-
-function loadLowRiskCustomer() {
-
-    setInput("arpu_8", 300);
-
-    setInput("offnet_mou_8", 100);
-
-    setInput("loc_og_t2m_mou_7", 80);
-
-    setInput("loc_og_t2m_mou_8", 85);
-
-    setInput("loc_og_mou_7", 150);
-
-    setInput("loc_og_mou_8", 155);
-
-    setInput("total_og_mou_8", 220);
-
-    setInput("loc_ic_t2m_mou_7", 70);
-
-    setInput("loc_ic_t2m_mou_8", 75);
-
-    setInput("loc_ic_mou_7", 120);
-
-    setInput("loc_ic_mou_8", 125);
-
-    setInput("total_ic_mou_7", 180);
-
-    setInput("total_ic_mou_8", 190);
-
-    setInput("total_rech_num_8", 15);
-
-    setInput("total_rech_amt_8", 500);
-
-    setInput("max_rech_amt_8", 100);
-
-    setInput("last_day_rch_amt_8", 50);
-
-    setInput("aon", 1500);
-
-    setInput("tenure_years", 4.1);
-
-    setInput("tenure_months", 49.3);
-
-    setInput("min_arpu", 250);
-
-    setInput("recent_arpu", 300);
-
-    setInput("arpu_change", 10);
-
-    setInput("avg_incoming_usage", 180);
-
-    setInput("recent_incoming_usage", 190);
-
-    setInput("incoming_usage_change", 10);
-
-    setInput("recent_outgoing_usage", 220);
-
-    setInput("outgoing_usage_change", 5);
-
-    setInput("recent_offnet_usage", 100);
-
-    setInput("activity_decline", 5);
-
-
-    showDemoMessage(
-        "Low-risk example loaded."
     );
 
 }
 
 
 // ============================================================
-// HIGH-RISK DEMO
+// RESULT PAGE
 // ============================================================
 
-function loadHighRiskCustomer() {
-
-    setInput("arpu_8", 20);
-
-    setInput("offnet_mou_8", 2);
-
-    setInput("loc_og_t2m_mou_7", 3);
-
-    setInput("loc_og_t2m_mou_8", 1);
-
-    setInput("loc_og_mou_7", 5);
-
-    setInput("loc_og_mou_8", 2);
-
-    setInput("total_og_mou_8", 3);
-
-    setInput("loc_ic_t2m_mou_7", 3);
-
-    setInput("loc_ic_t2m_mou_8", 1);
-
-    setInput("loc_ic_mou_7", 5);
-
-    setInput("loc_ic_mou_8", 2);
-
-    setInput("total_ic_mou_7", 5);
-
-    setInput("total_ic_mou_8", 2);
-
-    setInput("total_rech_num_8", 1);
-
-    setInput("total_rech_amt_8", 10);
-
-    setInput("max_rech_amt_8", 10);
-
-    setInput("last_day_rch_amt_8", 0);
-
-    setInput("aon", 100);
-
-    setInput("tenure_years", 0.27);
-
-    setInput("tenure_months", 3.3);
-
-    setInput("min_arpu", 15);
-
-    setInput("recent_arpu", 20);
-
-    setInput("arpu_change", -50);
-
-    setInput("avg_incoming_usage", 5);
-
-    setInput("recent_incoming_usage", 2);
-
-    setInput("incoming_usage_change", -10);
-
-    setInput("recent_outgoing_usage", 3);
-
-    setInput("outgoing_usage_change", -15);
-
-    setInput("recent_offnet_usage", 2);
-
-    setInput("activity_decline", 100);
-
-
-    showDemoMessage(
-        "High-risk example loaded."
+const resultTitle =
+    document.getElementById(
+        "resultTitle"
     );
 
-}
 
-
-// ============================================================
-// DEMO MESSAGE
-// ============================================================
-
-function showDemoMessage(message) {
-
-    console.log(message);
-
-
-    const demoBox =
-        document.querySelector(
-            ".demo-box"
-        );
-
-
-    if (!demoBox) {
-
-        return;
-
-    }
-
-
-    let messageElement =
-        document.getElementById(
-            "demoMessage"
-        );
-
-
-    if (!messageElement) {
-
-        messageElement =
-            document.createElement(
-                "div"
-            );
-
-        messageElement.id =
-            "demoMessage";
-
-        messageElement.className =
-            "demo-message";
-
-        demoBox.appendChild(
-            messageElement
-        );
-
-    }
-
-
-    messageElement.textContent =
-        "✓ " + message;
-
-}
-
-
-// ============================================================
-// LOAD RESULT PAGE
-// ============================================================
-
-function loadPredictionResult() {
-
-    const resultTitle =
-        document.getElementById(
-            "resultTitle"
-        );
-
-
-    if (!resultTitle) {
-
-        return;
-
-    }
-
+if (resultTitle) {
 
     const savedResult =
         localStorage.getItem(
-            "churnPrediction"
+            "predictionResult"
         );
 
 
     if (!savedResult) {
 
         resultTitle.textContent =
-            "No prediction found";
+            "No Prediction Available";
+
+    } else {
+
+        try {
+
+            const result =
+                JSON.parse(
+                    savedResult
+                );
 
 
-        const message =
-            document.getElementById(
-                "resultMessage"
+            displayResult(
+                result
             );
 
 
-        if (message) {
+        } catch (error) {
 
-            message.textContent =
-                "Please make a prediction first.";
+            console.error(
+                "Result parsing error:",
+                error
+            );
 
         }
-
-
-        return;
-
-    }
-
-
-    try {
-
-        const result =
-            JSON.parse(
-                savedResult
-            );
-
-
-        displayPredictionResult(
-            result
-        );
-
-
-    }
-    catch (error) {
-
-        console.error(
-            "Unable to load result:",
-            error
-        );
 
     }
 
@@ -779,224 +557,148 @@ function loadPredictionResult() {
 // DISPLAY RESULT
 // ============================================================
 
-function displayPredictionResult(result) {
+function displayResult(result) {
 
-    const prediction =
-        Number(
-            result.prediction
-        );
-
-
-    const probability =
-        Number(
-            result.probabvlity ??
-            result.probability ??
-            0
-        );
-
-
-    const percentage =
-        (probability * 100)
-        .toFixed(1);
-
-
-    const resultTitle =
-        document.getElementById(
-            "resultTitle"
-        );
-
-
-    const resultProbability =
-        document.getElementById(
-            "resultProbability"
-        );
-
-
-    const resultMessage =
-        document.getElementById(
-            "resultMessage"
-        );
-
-
-    const riskLevel =
-        document.getElementById(
-            "riskLevel"
-        );
-
-
-    const riskBadge =
-        document.getElementById(
-            "riskBadge"
-        );
-
-
-    const resultIcon =
+    const icon =
         document.getElementById(
             "resultIcon"
         );
 
-
-    if (prediction === 1) {
-
-        resultTitle.textContent =
-            "Customer is likely to churn";
-
-        resultMessage.textContent =
-            "The model identifies this customer as being at risk of leaving the telecom service.";
-
-        riskLevel.textContent =
-            "HIGH RISK";
-
-        riskBadge.textContent =
-            "HIGH CHURN RISK";
-
-        resultIcon.textContent =
-            "⚠️";
-
-
-        if (riskBadge) {
-
-            riskBadge.classList.add(
-                "high-risk"
-            );
-
-        }
-
-    }
-    else {
-
-        resultTitle.textContent =
-            "Customer is likely to stay";
-
-        resultMessage.textContent =
-            "The model identifies this customer as having a lower likelihood of churn.";
-
-        riskLevel.textContent =
-            "LOW RISK";
-
-        riskBadge.textContent =
-            "LOW CHURN RISK";
-
-        resultIcon.textContent =
-            "✓";
-
-
-        if (riskBadge) {
-
-            riskBadge.classList.add(
-                "low-risk"
-            );
-
-        }
-
-    }
-
-
-    resultProbability.textContent =
-        `${percentage}%`;
-
-
-    animateProbability(
-        probability
-    );
-
-}
-
-
-// ============================================================
-// PROBABILITY ANIMATION
-// ============================================================
-
-function animateProbability(target) {
-
-    const element =
+    const title =
         document.getElementById(
-            "resultProbability"
+            "resultTitle"
+        );
+
+    const description =
+        document.getElementById(
+            "resultDescription"
+        );
+
+    const risk =
+        document.getElementById(
+            "riskLevel"
+        );
+
+    const probability =
+        document.getElementById(
+            "probabilityValue"
+        );
+
+    const probabilityBar =
+        document.getElementById(
+            "probabilityBar"
+        );
+
+    const prediction =
+        document.getElementById(
+            "predictionValue"
+        );
+
+    const riskValue =
+        document.getElementById(
+            "riskValue"
         );
 
 
-    if (!element) {
+    // --------------------------------------------
+    // CONVERT PROBABILITY TO PERCENTAGE
+    // --------------------------------------------
 
-        return;
+    const probabilityPercent =
+        Number(result.probability) * 100;
+
+
+    // --------------------------------------------
+    // HIGH RISK
+    // --------------------------------------------
+
+    if (
+        result.risk === "High"
+    ) {
+
+        icon.textContent =
+            "⚠️";
+
+        icon.style.background =
+            "#fee2e2";
+
+        title.textContent =
+            "Customer is at High Risk";
+
+        title.style.color =
+            "#dc2626";
+
+        description.textContent =
+            "The model predicts that this customer is likely to churn. Consider taking retention action.";
+
+        risk.textContent =
+            "HIGH";
+
+        risk.style.color =
+            "#dc2626";
+
+        probabilityBar.style.background =
+            "#dc2626";
 
     }
 
 
-    const targetPercentage =
-        target * 100;
+    // --------------------------------------------
+    // LOW RISK
+    // --------------------------------------------
+
+    else {
+
+        icon.textContent =
+            "✅";
+
+        icon.style.background =
+            "#dcfce7";
+
+        title.textContent =
+            "Customer is at Low Risk";
+
+        title.style.color =
+            "#16a34a";
+
+        description.textContent =
+            "The model predicts that this customer is likely to remain active.";
+
+        risk.textContent =
+            "LOW";
+
+        risk.style.color =
+            "#16a34a";
+
+        probabilityBar.style.background =
+            "#16a34a";
+
+    }
 
 
-    let current = 0;
+    // --------------------------------------------
+    // PROBABILITY
+    // --------------------------------------------
+
+    probability.textContent =
+        probabilityPercent.toFixed(1) + "%";
 
 
-    const duration = 1000;
-
-    const steps = 60;
-
-    const increment =
-        targetPercentage / steps;
+    probabilityBar.style.width =
+        probabilityPercent + "%";
 
 
-    const interval =
-        duration / steps;
+    // --------------------------------------------
+    // DETAILS
+    // --------------------------------------------
+
+    prediction.textContent =
+        result.prediction === 1
+            ? "Likely to Churn"
+            : "Likely to Stay";
 
 
-    const timer =
-        setInterval(() => {
-
-            current += increment;
-
-
-            if (
-                current >=
-                targetPercentage
-            ) {
-
-                current =
-                    targetPercentage;
-
-                clearInterval(
-                    timer
-                );
-
-            }
-
-
-            element.textContent =
-                `${current.toFixed(1)}%`;
-
-
-        }, interval);
-
-}
-
-
-// ============================================================
-// CLEAR OLD RESULT
-// ============================================================
-
-function clearPrediction() {
-
-    localStorage.removeItem(
-        "churnPrediction"
-    );
-
-    localStorage.removeItem(
-        "customerData"
-    );
+    riskValue.textContent =
+        result.risk;
 
 }
-
-
-// ============================================================
-// EXPORT FUNCTIONS
-// ============================================================
-
-window.loadLowRiskCustomer =
-    loadLowRiskCustomer;
-
-window.loadHighRiskCustomer =
-    loadHighRiskCustomer;
-
-window.clearPrediction =
-    clearPrediction;

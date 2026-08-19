@@ -10,9 +10,12 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>ChurnAI | Result</title>
+    <title>Prediction Result | ChurnPredict</title>
 
-    <link rel="stylesheet" href="css/style.css">
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
 
 </head>
 
@@ -20,194 +23,201 @@
 <body>
 
 
-<header class="navbar">
+    <!-- ================================
+         NAVIGATION
+    ================================= -->
 
-    <a href="index.html" class="brand">
+    <header class="navbar">
 
-        <div class="brand-icon">
-            AI
-        </div>
-
-        <div>
-
-            <strong>ChurnAI</strong>
-
-            <small>
-                Telecom Intelligence
-            </small>
-
-        </div>
-
-    </a>
-
-
-    <nav>
-
-        <a href="index.html">
-            Home
-        </a>
-
-        <a href="predict.html">
-            Predict
-        </a>
-
-        <a href="about.html">
-            About
-        </a>
-
-    </nav>
-
-</header>
-
-
-
-<main>
-
-<section class="result-page">
-
-
-    <div class="section-heading">
-
-        <span>
-            AI ANALYSIS COMPLETE
-        </span>
-
-        <h1>
-            Prediction Result
-        </h1>
-
-        <p>
-            Here's what our machine learning model
-            found about this customer.
-        </p>
-
-    </div>
-
-
-
-    <div id="resultCard" class="result-card reveal">
-
-
-        <div id="resultIcon" class="result-icon">
-            🤖
+        <div class="logo">
+            ChurnPredict
         </div>
 
 
-        <div id="riskBadge" class="risk-badge">
-            ANALYZING
-        </div>
+        <nav>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="prediction.html">
+                Prediction
+            </a>
+
+            <a href="about.html">
+                About
+            </a>
+
+        </nav>
+
+    </header>
 
 
-        <h2 id="resultTitle">
-            Loading result...
-        </h2>
+
+    <!-- ================================
+         RESULT SECTION
+    ================================= -->
+
+    <main class="result-page">
+
+        <div class="result-card">
 
 
-        <div class="probability">
+            <!-- STATUS ICON -->
 
-            <strong id="resultProbability">
-                0%
-            </strong>
-
-            <span>
-                ESTIMATED CHURN PROBABILITY
-            </span>
-
-        </div>
+            <div
+                id="resultIcon"
+                class="result-icon"
+            >
+                🔍
+            </div>
 
 
-        <p id="resultMessage">
-            Please wait while we load the prediction.
-        </p>
+            <!-- TITLE -->
+
+            <p class="badge">
+                AI PREDICTION RESULT
+            </p>
 
 
-        <div class="result-stats">
+            <h1 id="resultTitle">
+                Analyzing Customer...
+            </h1>
 
 
-            <div>
+            <!-- RESULT DESCRIPTION -->
+
+            <p
+                id="resultDescription"
+                class="result-description"
+            >
+                Your customer's information has been
+                analyzed by the machine learning model.
+            </p>
+
+
+            <!-- RISK -->
+
+            <div class="risk-container">
 
                 <span>
-                    RISK LEVEL
+                    Risk Level
                 </span>
 
                 <strong id="riskLevel">
-                    —
+                    --
                 </strong>
 
             </div>
 
 
-            <div>
+            <!-- PROBABILITY -->
 
-                <span>
-                    MODEL
-                </span>
+            <div class="probability-container">
 
-                <strong>
-                    Logistic Regression
-                </strong>
+                <div class="probability-header">
+
+                    <span>
+                        Churn Probability
+                    </span>
+
+                    <strong id="probabilityValue">
+                        0%
+                    </strong>
+
+                </div>
+
+
+                <div class="progress-bar">
+
+                    <div
+                        id="probabilityBar"
+                        class="progress-fill"
+                    ></div>
+
+                </div>
 
             </div>
 
 
-            <div>
+            <!-- MODEL RESULT -->
 
-                <span>
-                    FEATURES
-                </span>
+            <div class="prediction-details">
 
-                <strong>
-                    30 Selected
-                </strong>
+                <div class="detail-box">
+
+                    <span>
+                        Prediction
+                    </span>
+
+                    <strong id="predictionValue">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <span>
+                        Risk
+                    </span>
+
+                    <strong id="riskValue">
+                        --
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- ACTION BUTTONS -->
+
+            <div class="result-actions">
+
+                <a
+                    href="prediction.html"
+                    class="btn primary-btn"
+                >
+                    🔄 New Prediction
+                </a>
+
+
+                <a
+                    href="index.html"
+                    class="btn secondary-btn"
+                >
+                    🏠 Back Home
+                </a>
 
             </div>
 
 
         </div>
 
-
-        <div class="result-actions">
-
-            <a
-                href="predict.html"
-                class="btn btn-primary"
-            >
-                Analyze Another →
-            </a>
-
-
-            <a
-                href="index.html"
-                class="btn btn-secondary"
-            >
-                Back Home
-            </a>
-
-        </div>
-
-
-    </div>
-
-</section>
-
-</main>
+    </main>
 
 
 
-<footer>
+    <!-- ================================
+         FOOTER
+    ================================= -->
 
-    <div>
-        © 2026 ChurnAI
-    </div>
+    <footer>
 
-    <div>
-        AI-powered customer intelligence
-    </div>
+        <p>
+            © 2026 Telecom Churn Prediction System
+        </p>
 
-</footer>
+    </footer>
 
 
-<script src="js/script.js"></script>
+
+    <!-- JAVASCRIPT -->
+
+    <script src="js/script.js"></script>
+
 
 </body>
 
