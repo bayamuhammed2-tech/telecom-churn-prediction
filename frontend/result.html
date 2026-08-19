@@ -23,201 +23,179 @@
 <body>
 
 
-    <!-- ================================
-         NAVIGATION
-    ================================= -->
+<header class="navbar">
 
-    <header class="navbar">
+    <a href="index.html" class="logo">
+        Churn<span>Predict</span>
+    </a>
 
-        <div class="logo">
-            ChurnPredict
+    <nav>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="prediction.html">
+            Prediction
+        </a>
+
+        <a href="about.html">
+            About
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main>
+
+<section class="result-section">
+
+    <div class="result-card">
+
+        <span class="eyebrow">
+            AI ANALYSIS COMPLETE
+        </span>
+
+
+        <div id="resultIcon" class="result-icon">
+            🤖
         </div>
 
 
-        <nav>
-
-            <a href="index.html">
-                Home
-            </a>
-
-            <a href="prediction.html">
-                Prediction
-            </a>
-
-            <a href="about.html">
-                About
-            </a>
-
-        </nav>
-
-    </header>
+        <h1 id="resultTitle">
+            Prediction Result
+        </h1>
 
 
-
-    <!-- ================================
-         RESULT SECTION
-    ================================= -->
-
-    <main class="result-page">
-
-        <div class="result-card">
+        <p id="resultDescription">
+            Your customer's prediction will appear here.
+        </p>
 
 
-            <!-- STATUS ICON -->
+        <div class="risk-display">
 
-            <div
-                id="resultIcon"
-                class="result-icon"
-            >
-                🔍
+            <span>
+                Risk Level
+            </span>
+
+            <strong id="riskLevel">
+                --
+            </strong>
+
+        </div>
+
+
+        <div class="probability-box">
+
+            <div class="probability-heading">
+
+                <span>
+                    Churn Probability
+                </span>
+
+                <strong id="probabilityValue">
+                    0%
+                </strong>
+
             </div>
 
 
-            <!-- TITLE -->
+            <div class="progress-bar">
 
-            <p class="badge">
-                AI PREDICTION RESULT
-            </p>
+                <div
+                    id="probabilityBar"
+                    class="progress-fill"
+                ></div>
 
+            </div>
 
-            <h1 id="resultTitle">
-                Analyzing Customer...
-            </h1>
-
-
-            <!-- RESULT DESCRIPTION -->
-
-            <p
-                id="resultDescription"
-                class="result-description"
-            >
-                Your customer's information has been
-                analyzed by the machine learning model.
-            </p>
+        </div>
 
 
-            <!-- RISK -->
+        <div class="result-details">
 
-            <div class="risk-container">
+            <div>
 
                 <span>
-                    Risk Level
+                    Model Prediction
                 </span>
 
-                <strong id="riskLevel">
+                <strong id="predictionValue">
                     --
                 </strong>
 
             </div>
 
 
-            <!-- PROBABILITY -->
+            <div>
 
-            <div class="probability-container">
+                <span>
+                    Risk Classification
+                </span>
 
-                <div class="probability-header">
-
-                    <span>
-                        Churn Probability
-                    </span>
-
-                    <strong id="probabilityValue">
-                        0%
-                    </strong>
-
-                </div>
-
-
-                <div class="progress-bar">
-
-                    <div
-                        id="probabilityBar"
-                        class="progress-fill"
-                    ></div>
-
-                </div>
+                <strong id="riskValue">
+                    --
+                </strong>
 
             </div>
-
-
-            <!-- MODEL RESULT -->
-
-            <div class="prediction-details">
-
-                <div class="detail-box">
-
-                    <span>
-                        Prediction
-                    </span>
-
-                    <strong id="predictionValue">
-                        --
-                    </strong>
-
-                </div>
-
-
-                <div class="detail-box">
-
-                    <span>
-                        Risk
-                    </span>
-
-                    <strong id="riskValue">
-                        --
-                    </strong>
-
-                </div>
-
-            </div>
-
-
-            <!-- ACTION BUTTONS -->
-
-            <div class="result-actions">
-
-                <a
-                    href="prediction.html"
-                    class="btn primary-btn"
-                >
-                    🔄 New Prediction
-                </a>
-
-
-                <a
-                    href="index.html"
-                    class="btn secondary-btn"
-                >
-                    🏠 Back Home
-                </a>
-
-            </div>
-
 
         </div>
 
-    </main>
+
+        <div class="result-note">
+
+            <strong>What does this mean?</strong>
+
+            <p id="resultNote">
+                The prediction is generated from the
+                customer's submitted information and
+                the trained machine learning model.
+            </p>
+
+        </div>
 
 
+        <div class="result-actions">
 
-    <!-- ================================
-         FOOTER
-    ================================= -->
+            <a
+                href="prediction.html"
+                class="btn primary-btn"
+            >
+                ← New Prediction
+            </a>
 
-    <footer>
+            <a
+                href="index.html"
+                class="btn secondary-btn"
+            >
+                Back Home
+            </a>
 
-        <p>
-            © 2026 Telecom Churn Prediction System
-        </p>
+        </div>
 
-    </footer>
+    </div>
+
+</section>
+
+</main>
 
 
+<footer>
 
-    <!-- JAVASCRIPT -->
+    <p>
+        © 2026 Telecom Churn Prediction
+    </p>
 
-    <script src="js/script.js"></script>
+    <p>
+        Machine Learning Web Service
+    </p>
 
+</footer>
+
+
+<script src="js/script.js"></script>
 
 </body>
 

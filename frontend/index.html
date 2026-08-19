@@ -1,67 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Telecom Churn Predictor</title>
+    <title>Telecom Churn Prediction</title>
 
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-    <!-- NAVIGATION -->
+<header class="navbar">
 
-    <header class="navbar">
+    <a href="index.html" class="logo">
+        Churn<span>Predict</span>
+    </a>
 
-        <div class="logo">
-            ChurnPredict
-        </div>
+    <nav>
+        <a href="index.html" class="active">Home</a>
+        <a href="prediction.html">Prediction</a>
+        <a href="about.html">About</a>
+    </nav>
 
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="prediction.html">Prediction</a>
-            <a href="about.html">About</a>
-    </header>
+</header>
 
 
-    <!-- HERO SECTION -->
+<main>
 
     <section class="hero">
 
         <div class="hero-content">
 
-            <p class="badge">
-                AI-POWERED CUSTOMER ANALYTICS
-            </p>
+            <span class="eyebrow">
+                AI-POWERED TELECOM ANALYTICS
+            </span>
 
             <h1>
                 Predict Customer Churn
                 <span>Before It Happens.</span>
             </h1>
 
-            <p class="hero-text">
-
-                Use machine learning to identify telecom
-                customers who may be at risk of leaving.
-
+            <p>
+                Analyze telecom customer behavior using a
+                machine learning model and estimate the
+                likelihood that a customer will leave the service.
             </p>
 
             <div class="hero-buttons">
 
-                <a
-                    href="prediction.html"
-                    class="btn primary-btn"
-                >
-                    Start Prediction
+                <a href="prediction.html" class="btn primary-btn">
+                    Start Prediction →
                 </a>
 
-                <a
-                    href="about.html"
-                    class="btn secondary-btn"
-                >
+                <a href="about.html" class="btn secondary-btn">
                     Learn More
                 </a>
 
@@ -69,32 +61,66 @@
 
         </div>
 
+
+        <div class="hero-card">
+
+            <div class="card-top">
+                <span class="status-dot"></span>
+                AI MODEL ONLINE
+            </div>
+
+            <div class="prediction-preview">
+
+                <span>Customer Risk</span>
+
+                <strong>Low Risk</strong>
+
+                <div class="mini-progress">
+                    <div></div>
+                </div>
+
+                <small>
+                    Example prediction
+                </small>
+
+            </div>
+
+        </div>
+
     </section>
 
 
-    <!-- FEATURES -->
+    <section class="section">
 
-    <section class="features">
+        <div class="section-heading">
 
-        <h2>
-            What This System Does
-        </h2>
+            <span class="eyebrow">
+                HOW IT WORKS
+            </span>
+
+            <h2>
+                Simple. Fast. Data Driven.
+            </h2>
+
+            <p>
+                The service turns customer information into
+                an easy-to-understand churn prediction.
+            </p>
+
+        </div>
+
 
         <div class="feature-grid">
 
             <div class="feature-card">
 
-                <div class="feature-icon">
-                    🤖
-                </div>
+                <div class="feature-number">01</div>
 
-                <h3>
-                    Machine Learning
-                </h3>
+                <h3>Enter Customer Data</h3>
 
                 <p>
-                    Uses a trained Logistic Regression
-                    model to analyze customer behavior.
+                    Provide the customer's telecom usage,
+                    recharge and activity information.
                 </p>
 
             </div>
@@ -102,17 +128,13 @@
 
             <div class="feature-card">
 
-                <div class="feature-icon">
-                    📊
-                </div>
+                <div class="feature-number">02</div>
 
-                <h3>
-                    Risk Analysis
-                </h3>
+                <h3>AI Analysis</h3>
 
                 <p>
-                    Estimates the probability that a
-                    customer will churn.
+                    Our trained machine learning pipeline
+                    analyzes the submitted customer information.
                 </p>
 
             </div>
@@ -120,17 +142,13 @@
 
             <div class="feature-card">
 
-                <div class="feature-icon">
-                    ⚡
-                </div>
+                <div class="feature-number">03</div>
 
-                <h3>
-                    Fast Predictions
-                </h3>
+                <h3>Get a Prediction</h3>
 
                 <p>
-                    Send customer information and receive
-                    a prediction within seconds.
+                    Receive a churn probability and a simple
+                    Low Risk or High Risk classification.
                 </p>
 
             </div>
@@ -140,17 +158,40 @@
     </section>
 
 
-    <!-- FOOTER -->
+    <section class="cta-section">
 
-    <footer>
+        <h2>
+            Ready to analyze a customer?
+        </h2>
 
         <p>
-            © 2026 Telecom Churn Prediction System
+            Start a prediction using the customer information
+            available to you.
         </p>
 
-    </footer>
+        <a href="prediction.html" class="btn primary-btn">
+            Start Prediction →
+        </a>
 
+    </section>
+
+</main>
+
+
+<footer>
+
+    <p>
+        © 2026 Telecom Churn Prediction
+    </p>
+
+    <p>
+        Machine Learning Web Service
+    </p>
+
+</footer>
+
+
+<script src="js/script.js"></script>
 
 </body>
-
 </html>

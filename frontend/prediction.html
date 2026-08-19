@@ -2,156 +2,740 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Telecom Churn Predictor</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <link rel="stylesheet" href="css/style.css">
+    <title>Customer Prediction | ChurnPredict</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
 </head>
+
 
 <body>
 
-    <!-- NAVIGATION -->
 
-    <header class="navbar">
+<header class="navbar">
 
-        <div class="logo">
-            ChurnPredict
-        </div>
+    <a href="index.html" class="logo">
+        Churn<span>Predict</span>
+    </a>
 
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="prediction.html">Prediction</a>
-            <a href="about.html">About</a>
-        </nav>
+    <nav>
 
-    </header>
+        <a href="index.html">
+            Home
+        </a>
 
+        <a href="prediction.html" class="active">
+            Prediction
+        </a>
 
-    <!-- HERO SECTION -->
+        <a href="about.html">
+            About
+        </a>
 
-    <section class="hero">
+    </nav>
 
-        <div class="hero-content">
-
-            <p class="badge">
-                AI-POWERED CUSTOMER ANALYTICS
-            </p>
-
-            <h1>
-                Predict Customer Churn
-                <span>Before It Happens.</span>
-            </h1>
-
-            <p class="hero-text">
-
-                Use machine learning to identify telecom
-                customers who may be at risk of leaving.
-
-            </p>
-
-            <div class="hero-buttons">
-
-                <a
-                    href="prediction.html"
-                    class="btn primary-btn"
-                >
-                    Start Prediction
-                </a>
-
-                <a
-                    href="about.html"
-                    class="btn secondary-btn"
-                >
-                    Learn More
-                </a>
-
-            </div>
-
-        </div>
-
-    </section>
+</header>
 
 
-    <!-- FEATURES -->
+<main>
 
-    <section class="features">
+<section class="form-section">
 
-        <h2>
-            What This System Does
-        </h2>
+    <div class="section-heading">
 
-        <div class="feature-grid">
+        <span class="eyebrow">
+            CUSTOMER ANALYSIS
+        </span>
 
-            <div class="feature-card">
-
-                <div class="feature-icon">
-                    🤖
-                </div>
-
-                <h3>
-                    Machine Learning
-                </h3>
-
-                <p>
-                    Uses a trained Logistic Regression
-                    model to analyze customer behavior.
-                </p>
-
-            </div>
-
-
-            <div class="feature-card">
-
-                <div class="feature-icon">
-                    📊
-                </div>
-
-                <h3>
-                    Risk Analysis
-                </h3>
-
-                <p>
-                    Estimates the probability that a
-                    customer will churn.
-                </p>
-
-            </div>
-
-
-            <div class="feature-card">
-
-                <div class="feature-icon">
-                    ⚡
-                </div>
-
-                <h3>
-                    Fast Predictions
-                </h3>
-
-                <p>
-                    Send customer information and receive
-                    a prediction within seconds.
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- FOOTER -->
-
-    <footer>
+        <h1>
+            Customer Churn Prediction
+        </h1>
 
         <p>
-            © 2026 Telecom Churn Prediction System
+            Enter the customer's information below.
+            The AI model will analyze the information
+            and estimate the customer's churn risk.
         </p>
 
-    </footer>
+    </div>
 
+
+    <div class="test-buttons">
+
+        <button
+            type="button"
+            id="lowRiskBtn"
+            class="test-btn low-test"
+        >
+            🟢 Load Low-Risk Example
+        </button>
+
+
+        <button
+            type="button"
+            id="highRiskBtn"
+            class="test-btn high-test"
+        >
+            🔴 Load High-Risk Example
+        </button>
+
+    </div>
+
+
+    <p id="formMessage" class="form-message"></p>
+
+
+    <form id="predictionForm">
+
+
+        <!-- CUSTOMER REVENUE -->
+
+        <div class="form-card">
+
+            <div class="form-card-heading">
+
+                <span>01</span>
+
+                <div>
+                    <h2>Revenue & ARPU</h2>
+
+                    <p>
+                        Information about the customer's
+                        average revenue and spending.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="input-grid">
+
+
+                <div class="input-group">
+
+                    <label for="arpu_8">
+                        ARPU — Month 8
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="arpu_8"
+                        required
+                    >
+
+                    <small>
+                        Average revenue generated by the
+                        customer during month 8.
+                    </small>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="min_arpu">
+                        Minimum ARPU
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="min_arpu"
+                        required
+                    >
+
+                    <small>
+                        Lowest ARPU recorded for the
+                        customer in the selected period.
+                    </small>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="recent_arpu">
+                        Recent ARPU
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="recent_arpu"
+                        required
+                    >
+
+                    <small>
+                        Most recent average revenue value.
+                    </small>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="arpu_change">
+                        ARPU Change
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="arpu_change"
+                        required
+                    >
+
+                    <small>
+                        Change in ARPU between earlier
+                        and recent months.
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- VOICE USAGE -->
+
+        <div class="form-card">
+
+            <div class="form-card-heading">
+
+                <span>02</span>
+
+                <div>
+
+                    <h2>Voice Usage</h2>
+
+                    <p>
+                        Incoming and outgoing call activity.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="input-grid">
+
+                <div class="input-group">
+                    <label for="offnet_mou_8">
+                        Off-net Usage — Month 8
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="offnet_mou_8"
+                        required
+                    >
+
+                    <small>
+                        Minutes used for calls outside
+                        the customer's network.
+                    </small>
+                </div>
+
+
+                <div class="input-group">
+                    <label for="total_og_mou_8">
+                        Total Outgoing Usage
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="total_og_mou_8"
+                        required
+                    >
+
+                    <small>
+                        Total outgoing call minutes.
+                    </small>
+                </div>
+
+
+                <div class="input-group">
+                    <label for="total_ic_mou_7">
+                        Total Incoming Usage — Month 7
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="total_ic_mou_7"
+                        required
+                    >
+                </div>
+
+
+                <div class="input-group">
+                    <label for="total_ic_mou_8">
+                        Total Incoming Usage — Month 8
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="total_ic_mou_8"
+                        required
+                    >
+                </div>
+
+
+                <div class="input-group">
+                    <label for="loc_og_t2m_mou_7">
+                        Local Outgoing T2M — Month 7
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="loc_og_t2m_mou_7"
+                        required
+                    >
+                </div>
+
+
+                <div class="input-group">
+                    <label for="loc_og_t2m_mou_8">
+                        Local Outgoing T2M — Month 8
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="loc_og_t2m_mou_8"
+                        required
+                    >
+                </div>
+
+
+                <div class="input-group">
+                    <label for="loc_og_mou_7">
+                        Local Outgoing Usage — Month 7
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="loc_og_mou_7"
+                        required
+                    >
+                </div>
+
+
+                <div class="input-group">
+                    <label for="loc_og_mou_8">
+                        Local Outgoing Usage — Month 8
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="loc_og_mou_8"
+                        required
+                    >
+                </div>
+
+
+                <div class="input-group">
+                    <label for="loc_ic_t2m_mou_7">
+                        Local Incoming T2M — Month 7
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="loc_ic_t2m_mou_7"
+                        required
+                    >
+                </div>
+
+
+                <div class="input-group">
+                    <label for="loc_ic_t2m_mou_8">
+                        Local Incoming T2M — Month 8
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="loc_ic_t2m_mou_8"
+                        required
+                    >
+                </div>
+
+
+                <div class="input-group">
+                    <label for="loc_ic_mou_7">
+                        Local Incoming Usage — Month 7
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="loc_ic_mou_7"
+                        required
+                    >
+                </div>
+
+
+                <div class="input-group">
+                    <label for="loc_ic_mou_8">
+                        Local Incoming Usage — Month 8
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="loc_ic_mou_8"
+                        required
+                    >
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RECHARGE -->
+
+        <div class="form-card">
+
+            <div class="form-card-heading">
+
+                <span>03</span>
+
+                <div>
+
+                    <h2>Recharge Activity</h2>
+
+                    <p>
+                        Information about customer recharge behavior.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="input-grid">
+
+                <div class="input-group">
+                    <label for="total_rech_num_8">
+                        Number of Recharges — Month 8
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="total_rech_num_8"
+                        required
+                    >
+                </div>
+
+
+                <div class="input-group">
+                    <label for="total_rech_amt_8">
+                        Total Recharge Amount
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="total_rech_amt_8"
+                        required
+                    >
+                </div>
+
+
+                <div class="input-group">
+                    <label for="max_rech_amt_8">
+                        Maximum Recharge Amount
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="max_rech_amt_8"
+                        required
+                    >
+                </div>
+
+
+                <div class="input-group">
+                    <label for="last_day_rch_amt_8">
+                        Last Day Recharge Amount
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="last_day_rch_amt_8"
+                        required
+                    >
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- TENURE -->
+
+        <div class="form-card">
+
+            <div class="form-card-heading">
+
+                <span>04</span>
+
+                <div>
+
+                    <h2>Customer Tenure</h2>
+
+                    <p>
+                        How long the customer has been
+                        using the telecom service.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="input-grid">
+
+                <div class="input-group">
+                    <label for="aon">
+                        Age on Network — Days
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="aon"
+                        required
+                    >
+                </div>
+
+
+                <div class="input-group">
+                    <label for="tenure_years">
+                        Tenure — Years
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="tenure_years"
+                        required
+                    >
+                </div>
+
+
+                <div class="input-group">
+                    <label for="tenure_months">
+                        Tenure — Months
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="tenure_months"
+                        required
+                    >
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ENGINEERED FEATURES -->
+
+        <div class="form-card">
+
+            <div class="form-card-heading">
+
+                <span>05</span>
+
+                <div>
+
+                    <h2>Activity & Behavior</h2>
+
+                    <p>
+                        Engineered customer behavior features
+                        used by the machine learning model.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="input-grid">
+
+
+                <div class="input-group">
+                    <label for="avg_incoming_usage">
+                        Average Incoming Usage
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="avg_incoming_usage"
+                        required
+                    >
+                </div>
+
+
+                <div class="input-group">
+                    <label for="recent_incoming_usage">
+                        Recent Incoming Usage
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="recent_incoming_usage"
+                        required
+                    >
+                </div>
+
+
+                <div class="input-group">
+                    <label for="incoming_usage_change">
+                        Incoming Usage Change
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="incoming_usage_change"
+                        required
+                    >
+                </div>
+
+
+                <div class="input-group">
+                    <label for="recent_outgoing_usage">
+                        Recent Outgoing Usage
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="recent_outgoing_usage"
+                        required
+                    >
+                </div>
+
+
+                <div class="input-group">
+                    <label for="outgoing_usage_change">
+                        Outgoing Usage Change
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="outgoing_usage_change"
+                        required
+                    >
+                </div>
+
+
+                <div class="input-group">
+                    <label for="recent_offnet_usage">
+                        Recent Off-net Usage
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="recent_offnet_usage"
+                        required
+                    >
+                </div>
+
+
+                <div class="input-group">
+                    <label for="activity_decline">
+                        Activity Decline
+                    </label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="activity_decline"
+                        required
+                    >
+
+                    <small>
+                        Represents the reduction in customer
+                        activity between earlier and recent periods.
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="submit-area">
+
+            <p>
+                Review the information before submitting.
+            </p>
+
+            <button
+                type="submit"
+                class="btn primary-btn submit-btn"
+            >
+                Analyze Customer →
+            </button>
+
+        </div>
+
+
+    </form>
+
+</section>
+
+</main>
+
+
+<footer>
+
+    <p>
+        © 2026 Telecom Churn Prediction
+    </p>
+
+    <p>
+        Machine Learning Web Service
+    </p>
+
+</footer>
+
+
+<script src="js/script.js"></script>
 
 </body>
 

@@ -3,37 +3,74 @@
 // ============================================================
 
 
-// ============================================================
-// BACKEND API
-// ============================================================
-
 const API_URL =
     "https://telecom-churn-prediction-askw.onrender.com/predict";
 
 
 // ============================================================
-// HELPER: SET INPUT VALUE
+// FEATURE ORDER
+// MUST MATCH FASTAPI
 // ============================================================
 
-function setValue(id, value) {
+const featureNames = [
 
-    const input = document.getElementById(id);
+    "arpu_8",
 
-    if (input) {
-        input.value = value;
-    }
+    "offnet_mou_8",
 
-}
+    "loc_og_t2m_mou_7",
+    "loc_og_t2m_mou_8",
+
+    "loc_og_mou_7",
+    "loc_og_mou_8",
+
+    "total_og_mou_8",
+
+    "loc_ic_t2m_mou_7",
+    "loc_ic_t2m_mou_8",
+
+    "loc_ic_mou_7",
+    "loc_ic_mou_8",
+
+    "total_ic_mou_7",
+    "total_ic_mou_8",
+
+    "total_rech_num_8",
+    "total_rech_amt_8",
+
+    "max_rech_amt_8",
+    "last_day_rch_amt_8",
+
+    "aon",
+
+    "tenure_years",
+    "tenure_months",
+
+    "min_arpu",
+    "recent_arpu",
+    "arpu_change",
+
+    "avg_incoming_usage",
+    "recent_incoming_usage",
+    "incoming_usage_change",
+
+    "recent_outgoing_usage",
+    "outgoing_usage_change",
+
+    "recent_offnet_usage",
+
+    "activity_decline"
+
+];
 
 
 // ============================================================
-// LOW-RISK TEST CUSTOMER
+// TEST DATA
 // ============================================================
 
 const lowRiskCustomer = {
 
     arpu_8: 450,
-
     offnet_mou_8: 120,
 
     loc_og_t2m_mou_7: 80,
@@ -82,14 +119,9 @@ const lowRiskCustomer = {
 };
 
 
-// ============================================================
-// HIGH-RISK TEST CUSTOMER
-// ============================================================
-
 const highRiskCustomer = {
 
     arpu_8: 20,
-
     offnet_mou_8: 2,
 
     loc_og_t2m_mou_7: 5,
@@ -142,14 +174,19 @@ const highRiskCustomer = {
 // FILL FORM
 // ============================================================
 
-function fillForm(customer) {
+function fillForm(data) {
 
-    Object.keys(customer).forEach(function (key) {
+    featureNames.forEach(function(feature) {
 
-        setValue(
-            key,
-            customer[key]
-        );
+        const input =
+            document.getElementById(feature);
+
+        if (input && data[feature] !== undefined) {
+
+            input.value =
+                data[feature];
+
+        }
 
     });
 
@@ -157,7 +194,7 @@ function fillForm(customer) {
 
 
 // ============================================================
-// LOW-RISK BUTTON
+// LOW RISK BUTTON
 // ============================================================
 
 const lowRiskBtn =
@@ -167,26 +204,14 @@ if (lowRiskBtn) {
 
     lowRiskBtn.addEventListener(
         "click",
-        function () {
+        function() {
 
-            fillForm(
-                lowRiskCustomer
+            fillForm(lowRiskCustomer);
+
+            showMessage(
+                "🟢 Low-risk example loaded.",
+                "#16a34a"
             );
-
-            const message =
-                document.getElementById(
-                    "formMessage"
-                );
-
-            if (message) {
-
-                message.textContent =
-                    "🟢 Low-risk test customer loaded.";
-
-                message.style.color =
-                    "#166534";
-
-            }
 
         }
     );
@@ -195,7 +220,7 @@ if (lowRiskBtn) {
 
 
 // ============================================================
-// HIGH-RISK BUTTON
+// HIGH RISK BUTTON
 // ============================================================
 
 const highRiskBtn =
@@ -205,26 +230,14 @@ if (highRiskBtn) {
 
     highRiskBtn.addEventListener(
         "click",
-        function () {
+        function() {
 
-            fillForm(
-                highRiskCustomer
+            fillForm(highRiskCustomer);
+
+            showMessage(
+                "🔴 High-risk example loaded.",
+                "#dc2626"
             );
-
-            const message =
-                document.getElementById(
-                    "formMessage"
-                );
-
-            if (message) {
-
-                message.textContent =
-                    "🔴 High-risk test customer loaded.";
-
-                message.style.color =
-                    "#991b1b";
-
-            }
 
         }
     );
@@ -233,120 +246,57 @@ if (highRiskBtn) {
 
 
 // ============================================================
-// GET FORM
+// MESSAGE
 // ============================================================
 
-const predictionForm =
-    document.getElementById(
-        "predictionForm"
-    );
+function showMessage(message, color) {
+
+    const element =
+        document.getElementById("formMessage");
+
+    if (!element) return;
+
+    element.textContent = message;
+
+    element.style.color = color;
+
+}
 
 
 // ============================================================
 // FORM SUBMISSION
 // ============================================================
 
+const predictionForm =
+    document.getElementById("predictionForm");
+
+
 if (predictionForm) {
 
     predictionForm.addEventListener(
         "submit",
-        async function (event) {
+        async function(event) {
 
             event.preventDefault();
 
 
-            const message =
-                document.getElementById(
-                    "formMessage"
-                );
+            showMessage(
+                "⏳ Analyzing customer...",
+                "#2563eb"
+            );
 
-
-            // --------------------------------------------
-            // SHOW LOADING MESSAGE
-            // --------------------------------------------
-
-            if (message) {
-
-                message.textContent =
-                    "⏳ Analyzing customer...";
-
-                message.style.color =
-                    "#2563eb";
-
-            }
-
-
-            // --------------------------------------------
-            // FEATURES REQUIRED BY MODEL
-            // --------------------------------------------
-
-            const featureNames = [
-
-                "arpu_8",
-
-                "offnet_mou_8",
-
-                "loc_og_t2m_mou_7",
-                "loc_og_t2m_mou_8",
-
-                "loc_og_mou_7",
-                "loc_og_mou_8",
-
-                "total_og_mou_8",
-
-                "loc_ic_t2m_mou_7",
-                "loc_ic_t2m_mou_8",
-
-                "loc_ic_mou_7",
-                "loc_ic_mou_8",
-
-                "total_ic_mou_7",
-                "total_ic_mou_8",
-
-                "total_rech_num_8",
-                "total_rech_amt_8",
-
-                "max_rech_amt_8",
-                "last_day_rch_amt_8",
-
-                "aon",
-
-                "tenure_years",
-                "tenure_months",
-
-                "min_arpu",
-                "recent_arpu",
-                "arpu_change",
-
-                "avg_incoming_usage",
-                "recent_incoming_usage",
-                "incoming_usage_change",
-
-                "recent_outgoing_usage",
-                "outgoing_usage_change",
-
-                "recent_offnet_usage",
-
-                "activity_decline"
-
-            ];
-
-
-            // --------------------------------------------
-            // CREATE JSON OBJECT
-            // --------------------------------------------
 
             const customerData = {};
 
 
-            for (
-                const feature of featureNames
-            ) {
+            // --------------------------------------------
+            // COLLECT ALL 30 FEATURES
+            // --------------------------------------------
+
+            for (const feature of featureNames) {
 
                 const input =
-                    document.getElementById(
-                        feature
-                    );
+                    document.getElementById(feature);
 
 
                 if (!input) {
@@ -361,24 +311,12 @@ if (predictionForm) {
                 }
 
 
-                const value =
-                    input.value;
+                if (input.value === "") {
 
-
-                if (
-                    value === "" ||
-                    value === null
-                ) {
-
-                    if (message) {
-
-                        message.textContent =
-                            `Please enter a value for ${feature}.`;
-
-                        message.style.color =
-                            "#dc2626";
-
-                    }
+                    showMessage(
+                        `Please enter ${feature}.`,
+                        "#dc2626"
+                    );
 
                     input.focus();
 
@@ -388,13 +326,13 @@ if (predictionForm) {
 
 
                 customerData[feature] =
-                    Number(value);
+                    Number(input.value);
 
             }
 
 
             // --------------------------------------------
-            // SEND REQUEST TO FASTAPI
+            // SEND TO FASTAPI
             // --------------------------------------------
 
             try {
@@ -407,10 +345,8 @@ if (predictionForm) {
                             method: "POST",
 
                             headers: {
-
                                 "Content-Type":
                                     "application/json"
-
                             },
 
                             body:
@@ -422,37 +358,21 @@ if (predictionForm) {
                     );
 
 
-                // ----------------------------------------
-                // CHECK RESPONSE
-                // ----------------------------------------
-
                 if (!response.ok) {
 
-                    const errorText =
-                        await response.text();
-
-                    console.error(
-                        "API Error:",
-                        errorText
-                    );
-
                     throw new Error(
-                        "The prediction server returned an error."
+                        "API returned an error."
                     );
 
                 }
 
-
-                // ----------------------------------------
-                // READ JSON
-                // ----------------------------------------
 
                 const result =
                     await response.json();
 
 
                 console.log(
-                    "Prediction result:",
+                    "MODEL RESULT:",
                     result
                 );
 
@@ -468,7 +388,7 @@ if (predictionForm) {
 
 
                 // ----------------------------------------
-                // GO TO RESULT PAGE
+                // OPEN RESULT PAGE
                 // ----------------------------------------
 
                 window.location.href =
@@ -477,21 +397,12 @@ if (predictionForm) {
 
             } catch (error) {
 
-                console.error(
-                    "Prediction error:",
-                    error
+                console.error(error);
+
+                showMessage(
+                    "❌ Unable to connect to the prediction service. Please try again.",
+                    "#dc2626"
                 );
-
-
-                if (message) {
-
-                    message.textContent =
-                        "❌ Unable to connect to the prediction server. Please try again.";
-
-                    message.style.color =
-                        "#dc2626";
-
-                }
 
             }
 
@@ -505,48 +416,30 @@ if (predictionForm) {
 // RESULT PAGE
 // ============================================================
 
-const resultTitle =
-    document.getElementById(
-        "resultTitle"
+const savedResult =
+    localStorage.getItem(
+        "predictionResult"
     );
 
 
-if (resultTitle) {
+if (
+    savedResult &&
+    document.getElementById("resultTitle")
+) {
 
-    const savedResult =
-        localStorage.getItem(
-            "predictionResult"
+    try {
+
+        const result =
+            JSON.parse(savedResult);
+
+        displayResult(result);
+
+    } catch(error) {
+
+        console.error(
+            "Unable to read prediction result.",
+            error
         );
-
-
-    if (!savedResult) {
-
-        resultTitle.textContent =
-            "No Prediction Available";
-
-    } else {
-
-        try {
-
-            const result =
-                JSON.parse(
-                    savedResult
-                );
-
-
-            displayResult(
-                result
-            );
-
-
-        } catch (error) {
-
-            console.error(
-                "Result parsing error:",
-                error
-            );
-
-        }
 
     }
 
@@ -559,65 +452,63 @@ if (resultTitle) {
 
 function displayResult(result) {
 
-    const icon =
-        document.getElementById(
-            "resultIcon"
-        );
-
     const title =
-        document.getElementById(
-            "resultTitle"
-        );
+        document.getElementById("resultTitle");
 
     const description =
-        document.getElementById(
-            "resultDescription"
-        );
+        document.getElementById("resultDescription");
+
+    const icon =
+        document.getElementById("resultIcon");
 
     const risk =
-        document.getElementById(
-            "riskLevel"
-        );
+        document.getElementById("riskLevel");
 
     const probability =
-        document.getElementById(
-            "probabilityValue"
-        );
+        document.getElementById("probabilityValue");
 
     const probabilityBar =
-        document.getElementById(
-            "probabilityBar"
-        );
+        document.getElementById("probabilityBar");
 
     const prediction =
-        document.getElementById(
-            "predictionValue"
-        );
+        document.getElementById("predictionValue");
 
     const riskValue =
-        document.getElementById(
-            "riskValue"
-        );
+        document.getElementById("riskValue");
 
+    const note =
+        document.getElementById("resultNote");
 
-    // --------------------------------------------
-    // CONVERT PROBABILITY TO PERCENTAGE
-    // --------------------------------------------
 
     const probabilityPercent =
         Number(result.probability) * 100;
 
 
-    // --------------------------------------------
-    // HIGH RISK
-    // --------------------------------------------
+    probability.textContent =
+        probabilityPercent.toFixed(1) + "%";
 
-    if (
-        result.risk === "High"
-    ) {
 
-        icon.textContent =
-            "⚠️";
+    probabilityBar.style.width =
+        probabilityPercent + "%";
+
+
+    prediction.textContent =
+        result.prediction === 1
+            ? "Likely to Churn"
+            : "Likely to Stay";
+
+
+    riskValue.textContent =
+        result.risk;
+
+
+    risk.textContent =
+        result.risk;
+
+
+    if (result.risk === "High") {
+
+        icon.textContent = "⚠️";
 
         icon.style.background =
             "#fee2e2";
@@ -629,10 +520,7 @@ function displayResult(result) {
             "#dc2626";
 
         description.textContent =
-            "The model predicts that this customer is likely to churn. Consider taking retention action.";
-
-        risk.textContent =
-            "HIGH";
+            "The model predicts that this customer has a higher likelihood of churning.";
 
         risk.style.color =
             "#dc2626";
@@ -640,17 +528,12 @@ function displayResult(result) {
         probabilityBar.style.background =
             "#dc2626";
 
-    }
+        note.textContent =
+            "This result indicates elevated churn risk based on the customer information provided.";
 
+    } else {
 
-    // --------------------------------------------
-    // LOW RISK
-    // --------------------------------------------
-
-    else {
-
-        icon.textContent =
-            "✅";
+        icon.textContent = "✅";
 
         icon.style.background =
             "#dcfce7";
@@ -662,10 +545,7 @@ function displayResult(result) {
             "#16a34a";
 
         description.textContent =
-            "The model predicts that this customer is likely to remain active.";
-
-        risk.textContent =
-            "LOW";
+            "The model predicts that this customer is more likely to remain active.";
 
         risk.style.color =
             "#16a34a";
@@ -673,32 +553,9 @@ function displayResult(result) {
         probabilityBar.style.background =
             "#16a34a";
 
+        note.textContent =
+            "This result indicates lower churn risk based on the customer information provided.";
+
     }
-
-
-    // --------------------------------------------
-    // PROBABILITY
-    // --------------------------------------------
-
-    probability.textContent =
-        probabilityPercent.toFixed(1) + "%";
-
-
-    probabilityBar.style.width =
-        probabilityPercent + "%";
-
-
-    // --------------------------------------------
-    // DETAILS
-    // --------------------------------------------
-
-    prediction.textContent =
-        result.prediction === 1
-            ? "Likely to Churn"
-            : "Likely to Stay";
-
-
-    riskValue.textContent =
-        result.risk;
 
 }

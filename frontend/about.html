@@ -19,13 +19,15 @@
 
 </head>
 
+
 <body>
+
 
 <header class="navbar">
 
-    <div class="logo">
-        ChurnPredict
-    </div>
+    <a href="index.html" class="logo">
+        Churn<span>Predict</span>
+    </a>
 
     <nav>
 
@@ -37,7 +39,7 @@
             Prediction
         </a>
 
-        <a href="about.html">
+        <a href="about.html" class="active">
             About
         </a>
 
@@ -46,33 +48,172 @@
 </header>
 
 
-<section class="page-section">
+<main>
+
+<section class="about-hero">
+
+    <span class="eyebrow">
+        ABOUT THE SERVICE
+    </span>
 
     <h1>
-        About ChurnPredict
+        Understanding Customer Churn
+        With Machine Learning
     </h1>
 
     <p>
-        ChurnPredict is a machine learning powered
-        telecom customer churn prediction system.
-    </p>
-
-    <p>
-        The system analyzes customer usage,
-        recharge activity, tenure and other
-        behavioral features to estimate churn risk.
+        Telecom Churn Prediction is a machine learning
+        web service designed to estimate whether a telecom
+        customer is likely to leave a service.
     </p>
 
 </section>
 
 
+<section class="about-content">
+
+
+    <div class="about-card">
+
+        <h2>
+            What is customer churn?
+        </h2>
+
+        <p>
+            Customer churn occurs when a customer stops using
+            a company's products or services. For telecom
+            companies, identifying customers who may leave
+            can help businesses understand customer behavior
+            and plan appropriate retention strategies.
+        </p>
+
+    </div>
+
+
+    <div class="about-card">
+
+        <h2>
+            How does this service work?
+        </h2>
+
+        <p>
+            The user provides customer information such as
+            revenue, recharge activity, call usage, customer
+            tenure and other behavioral measurements.
+        </p>
+
+        <p>
+            The information is sent to a FastAPI backend,
+            where a trained machine learning pipeline analyzes
+            the data and produces a prediction.
+        </p>
+
+    </div>
+
+
+    <div class="about-card">
+
+        <h2>
+            What does the result mean?
+        </h2>
+
+        <p>
+            The system returns a predicted churn probability
+            together with a simple risk classification.
+        </p>
+
+        <div class="risk-explanation">
+
+            <div>
+                <strong>Low Risk</strong>
+
+                <p>
+                    The model predicts that the customer
+                    is more likely to remain active.
+                </p>
+            </div>
+
+
+            <div>
+                <strong>High Risk</strong>
+
+                <p>
+                    The model predicts that the customer
+                    is more likely to churn.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="about-card">
+
+        <h2>
+            Technology Behind the Service
+        </h2>
+
+        <div class="technology-list">
+
+            <span>Python</span>
+
+            <span>FastAPI</span>
+
+            <span>Scikit-learn</span>
+
+            <span>Pandas</span>
+
+            <span>NumPy</span>
+
+            <span>Joblib</span>
+
+            <span>HTML</span>
+
+            <span>CSS</span>
+
+            <span>JavaScript</span>
+
+        </div>
+
+    </div>
+
+
+    <div class="about-card notice-card">
+
+        <h2>
+            Important Note
+        </h2>
+
+        <p>
+            This system provides a machine learning prediction
+            and should be treated as a decision-support tool.
+            Predictions are based on patterns learned from
+            training data and are not guaranteed outcomes.
+        </p>
+
+    </div>
+
+
+</section>
+
+</main>
+
+
 <footer>
 
     <p>
-        © 2026 Telecom Churn Prediction System
+        © 2026 Telecom Churn Prediction
+    </p>
+
+    <p>
+        Machine Learning Web Service
     </p>
 
 </footer>
+
+
+<script src="js/script.js"></script>
 
 </body>
 
